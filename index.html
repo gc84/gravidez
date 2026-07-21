@@ -4,12 +4,20 @@
   
   <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.5rem;">
     <div>
-      <label style="display: block; font-size: 13px; color: var(--text-secondary); margin-bottom: 6px;">Peso pré-gravidez (kg)</label>
-      <input type="number" id="preWeight" value="64" min="30" max="200" step="0.5" style="width: 100%;">
+      <label style="display: block; font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;">Peso pré-gravidez (kg)</label>
+      <div class="weight-picker" id="preWeightPicker" style="background: var(--surface-1); border-radius: var(--radius); border: 0.5px solid var(--border); padding: 8px; height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: grab; user-select: none; position: relative; overflow: hidden;">
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none;">
+          <div style="position: absolute; top: 40px; left: 0; right: 0; height: 40px; border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border);"></div>
+        </div>
+        <div id="preWeightDisplay" style="position: relative; z-index: 1; font-size: 32px; font-weight: 500; color: var(--text-primary);">64</div>
+        <div style="position: relative; z-index: 1; font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Rolar para alterar</div>
+      </div>
+      <input type="hidden" id="preWeight" value="64">
     </div>
+    
     <div>
-      <label style="display: block; font-size: 13px; color: var(--text-secondary); margin-bottom: 6px;">Altura (cm)</label>
-      <input type="number" id="height" value="160" min="140" max="220" step="1" style="width: 100%;">
+      <label style="display: block; font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;">Altura (cm)</label>
+      <input type="number" id="height" value="160" min="140" max="220" step="1" style="width: 100%; font-size: 16px;">
     </div>
   </div>
 
@@ -29,9 +37,17 @@
 
   <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 1.5rem;">
     <div>
-      <label style="display: block; font-size: 13px; color: var(--text-secondary); margin-bottom: 6px;">Peso atual (kg)</label>
-      <input type="number" id="currentWeight" value="72" min="30" max="200" step="0.1" style="width: 100%;">
+      <label style="display: block; font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;">Peso atual (kg)</label>
+      <div class="weight-picker" id="currentWeightPicker" style="background: var(--surface-1); border-radius: var(--radius); border: 0.5px solid var(--border); padding: 8px; height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: grab; user-select: none; position: relative; overflow: hidden;">
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none;">
+          <div style="position: absolute; top: 40px; left: 0; right: 0; height: 40px; border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border);"></div>
+        </div>
+        <div id="currentWeightDisplay" style="position: relative; z-index: 1; font-size: 32px; font-weight: 500; color: var(--text-primary);">72</div>
+        <div style="position: relative; z-index: 1; font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Rolar para alterar</div>
+      </div>
+      <input type="hidden" id="currentWeight" value="72">
     </div>
+    
     <div style="background: var(--surface-1); border-radius: var(--radius); padding: 1rem;">
       <p style="font-size: 13px; color: var(--text-secondary); margin: 0 0 4px;">Ganho até agora</p>
       <p style="font-size: 20px; font-weight: 500; color: var(--text-primary); margin: 0;" id="currentGain">8.0 kg</p>
@@ -55,15 +71,79 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
 const preWeightInput = document.getElementById('preWeight');
+const preWeightDisplay = document.getElementById('preWeightDisplay');
+const preWeightPicker = document.getElementById('preWeightPicker');
+
+const currentWeightInput = document.getElementById('currentWeight');
+const currentWeightDisplay = document.getElementById('currentWeightDisplay');
+const currentWeightPicker = document.getElementById('currentWeightPicker');
+
 const heightInput = document.getElementById('height');
 const weekInput = document.getElementById('week');
 const weekDisplay = document.getElementById('weekDisplay');
 const bmiDisplay = document.getElementById('bmiDisplay');
-const currentWeightInput = document.getElementById('currentWeight');
 const currentGainDisplay = document.getElementById('currentGain');
 const recommendedGainDisplay = document.getElementById('recommendedGain');
 
 let chart;
+
+function createWeightPicker(picker, inputElement, displayElement, min = 30, max = 200) {
+  let isDragging = false;
+  let startY = 0;
+  let value = parseFloat(inputElement.value);
+
+  function updateDisplay() {
+    value = Math.max(min, Math.min(max, value));
+    inputElement.value = value;
+    displayElement.textContent = value.toFixed(1);
+    updateChart();
+  }
+
+  picker.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const delta = e.deltaY > 0 ? -0.5 : 0.5;
+    value += delta;
+    updateDisplay();
+  }, { passive: false });
+
+  picker.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    startY = e.clientY;
+    picker.style.cursor = 'grabbing';
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const diff = startY - e.clientY;
+    const delta = diff * 0.1;
+    value += delta;
+    updateDisplay();
+    startY = e.clientY;
+  });
+
+  document.addEventListener('mouseup', () => {
+    isDragging = false;
+    picker.style.cursor = 'grab';
+  });
+
+  picker.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    startY = e.touches[0].clientY;
+  });
+
+  document.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    const diff = startY - e.touches[0].clientY;
+    const delta = diff * 0.1;
+    value += delta;
+    updateDisplay();
+    startY = e.touches[0].clientY;
+  });
+
+  document.addEventListener('touchend', () => {
+    isDragging = false;
+  });
+}
 
 function getWeightRecommendation(bmi) {
   if (bmi < 18.5) return { min: 12.5, max: 18, category: 'Baixo peso' };
@@ -232,13 +312,14 @@ function updateChart() {
   }
 }
 
-preWeightInput.addEventListener('input', updateChart);
+createWeightPicker(preWeightPicker, preWeightInput, preWeightDisplay, 30, 200);
+createWeightPicker(currentWeightPicker, currentWeightInput, currentWeightDisplay, 30, 200);
+
 heightInput.addEventListener('input', updateChart);
 weekInput.addEventListener('input', () => {
   weekDisplay.textContent = weekInput.value;
   updateChart();
 });
-currentWeightInput.addEventListener('input', updateChart);
 
 updateChart();
 </script>
