@@ -58,7 +58,46 @@
         <label style="font-size: 32px; font-weight: 500; color: var(--text-primary);">Peso atual</label>
         <span style="font-size: 32px; font-weight: 500; color: var(--fill-accent);" id="currentWeightValue">72</span>
       </div>
-      <input type="range" id="currentWeight" value="72" min="preWeight" max="preWeight+30" step="0.1" style="width: 100%; height: 48px; cursor: pointer;">
+      <!-- Peso atual -->
+      <input type="range" id="currentWeight" step="0.1" style="width: 100%; height: 48px; cursor: pointer;">
+      <span id="weightValue"></span>
+
+      <script>
+        const preWeightInput = document.getElementById("preWeight");
+        const preWeightValueSpan = document.getElementById("preWeightValue");
+        const currentWeightInput = document.getElementById("currentWeight");
+        const weightValueSpan = document.getElementById("weightValue");
+
+        function updateCurrentWeightRange() {
+          // Captura o valor atual do preWeight (convertido para número decimal)
+          let preWeightValue = parseFloat(preWeightInput.value);
+          
+          // Atualiza o texto do span do peso pré-gravidez
+          preWeightValueSpan.textContent = preWeightValue;
+
+          // Define o min e max do currentWeight com base na regra (+ 30)
+          currentWeightInput.min = preWeightValue;
+          currentWeightInput.max = preWeightValue + 30;
+
+          // Ajusta o valor atual do currentWeight caso ele fique fora do novo limite
+          if (parseFloat(currentWeightInput.value) < preWeightValue || !currentWeightInput.value) {
+            currentWeightInput.value = preWeightValue;
+          }
+          
+          weightValueSpan.textContent = currentWeightInput.value;
+        }
+
+        // Executa a função assim que a página carrega para configurar os valores iniciais
+        updateCurrentWeightRange();
+
+        // Adiciona o evento para atualizar sempre que o usuário mover o primeiro input
+        preWeightInput.addEventListener("input", updateCurrentWeightRange);
+        
+        // Opcional: Atualizar o texto do span do peso atual ao mexer nele
+        currentWeightInput.addEventListener("input", () => {
+          weightValueSpan.textContent = currentWeightInput.value;
+        });
+      </script>
     </div>
 
     <div>
