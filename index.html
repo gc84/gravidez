@@ -1,14 +1,14 @@
 
-<div style="font-size: 40px; padding: 0.5rem 0; max-width: 100%;">
+<div style="font-size: 30px; padding: 0.5rem 0; max-width: 100%;">
   <h2 class="sr-only">Curva de peso da gravidez interativa</h2>
   
   <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 1.5rem;">
     <div>
       <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px;">
-        <label style="font-size: 40px; font-weight: 500; color: var(--text-primary);">Peso pré-gravidez</label>
-        <span style="font-size: 40px; font-weight: 500; color: var(--fill-accent);" id="preWeightValue">64</span>
+        <label style="font-size: 32px; font-weight: 500; color: var(--text-primary);">Peso pré-gravidez</label>
+        <span style="font-size: 32px; font-weight: 500; color: var(--fill-accent);" id="preWeightValue">64</span>
       </div>
-      <input type="range" id="preWeight" value="64" min="60" max="90" step="1" style="width: 100%; height: 40px; cursor: pointer; -webkit-appearance: none; appearance: none; background: transparent;">
+      <input type="range" id="height" value="160" min="150" max="170" step="1" style="width: 100%; height: 48px; cursor: pointer;">
       <style>
         input[type="range"] { width: 100%; }
         input[type="range"]::-webkit-slider-track {
@@ -20,8 +20,8 @@
         input[type="range"]::-webkit-slider-thumb {
           -webkit-appearance: none;
           appearance: none;
-          width: 40px;
-          height: 40px;
+          width: 32px;
+          height: 32px;
           border-radius: 100%;
           background: var(--fill-accent);
           cursor: pointer;
@@ -34,8 +34,8 @@
           border: 1px solid var(--border);
         }
         input[type="range"]::-moz-range-thumb {
-          width: 40px;
-          height: 40px;
+          width: 32px;
+          height: 32px;
           border-radius: 100%;
           background: var(--fill-accent);
           cursor: pointer;
@@ -47,24 +47,24 @@
 
     <div>
       <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px;">
-        <label style="font-size: 40px; font-weight: 500; color: var(--text-primary);">Altura</label>
-        <span style="font-size: 40px; font-weight: 500; color: var(--fill-accent);" id="heightValue">160</span>
+        <label style="font-size: 32px; font-weight: 500; color: var(--text-primary);">Altura</label>
+        <span style="font-size: 32px; font-weight: 500; color: var(--fill-accent);" id="heightValue">160</span>
       </div>
       <input type="range" id="height" value="160" min="150" max="170" step="1" style="width: 100%; height: 48px; cursor: pointer;">
     </div>
 
     <div>
       <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px;">
-        <label style="font-size: 40px; font-weight: 500; color: var(--text-primary);">Peso atual</label>
-        <span style="font-size: 40px; font-weight: 500; color: var(--fill-accent);" id="currentWeightValue">72</span>
+        <label style="font-size: 32px; font-weight: 500; color: var(--text-primary);">Peso atual</label>
+        <span style="font-size: 32px; font-weight: 500; color: var(--fill-accent);" id="currentWeightValue">72</span>
       </div>
       <input type="range" id="currentWeight" value="72" min="50" max="90" step="0.1" style="width: 100%; height: 48px; cursor: pointer;">
     </div>
 
     <div>
       <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px;">
-        <label style="font-size: 40px; font-weight: 500; color: var(--text-primary);">Semana atual</label>
-        <span style="font-size: 40px; font-weight: 500; color: var(--fill-accent);" id="weekValue">26</span>
+        <label style="font-size: 32px; font-weight: 500; color: var(--text-primary);">Semana atual</label>
+        <span style="font-size: 32px; font-weight: 500; color: var(--fill-accent);" id="weekValue">26</span>
       </div>
       <input type="range" id="week" value="26" min="0" max="40" step="1" style="width: 100%; height: 48px; cursor: pointer;">
     </div>
@@ -72,21 +72,21 @@
 
   <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem;">
     <div style="background: var(--surface-1); border-radius: 12px; padding: 1.5rem;">
-      <p style="font-size: 40px; color: var(--text-secondary); margin: 0 0 12px;">IMC pré-gravidez</p>
-      <p style="font-size: 40px; font-weight: 500; color: var(--text-primary); margin: 0;" id="bmiDisplay">25.0</p>
-      <p style="font-size: 40px; color: var(--text-secondary); margin: 8px 0 0;" id="bmiCategory">Normal</p>
+      <p style="font-size: 32px; color: var(--text-secondary); margin: 0 0 12px;">IMC pré-gravidez</p>
+      <p style="font-size: 32px; font-weight: 500; color: var(--text-primary); margin: 0;" id="bmiDisplay">25.0</p>
+      <p style="font-size: 32px; color: var(--text-secondary); margin: 8px 0 0;" id="bmiCategory">Normal</p>
     </div>
 
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
       <div style="background: var(--surface-1); border-radius: 12px; padding: 1.5rem;">
-        <p style="font-size: 40px; color: var(--text-secondary); margin: 0 0 12px;">Ganho atual</p>
-        <p style="font-size: 40px; font-weight: 500; color: var(--text-primary); margin: 0;" id="currentGain">8.0</p>
-        <p style="font-size: 40px; color: var(--text-secondary); margin: 8px 0 0;">kg</p>
+        <p style="font-size: 32px; color: var(--text-secondary); margin: 0 0 12px;">Ganho atual</p>
+        <p style="font-size: 32px; font-weight: 500; color: var(--text-primary); margin: 0;" id="currentGain">8.0</p>
+        <p style="font-size: 32px; color: var(--text-secondary); margin: 8px 0 0;">kg</p>
       </div>
       <div style="background: var(--surface-1); border-radius: 12px; padding: 1.5rem;">
-        <p style="font-size: 40px; color: var(--text-secondary); margin: 0 0 12px;">Recomendado</p>
-        <p style="font-size: 40px; font-weight: 500; color: var(--text-primary); margin: 0;" id="recommendedGain">11.5-16</p>
-        <p style="font-size: 40px; color: var(--text-secondary); margin: 8px 0 0;">kg</p>
+        <p style="font-size: 32px; color: var(--text-secondary); margin: 0 0 12px;">Recomendado</p>
+        <p style="font-size: 32px; font-weight: 500; color: var(--text-primary); margin: 0;" id="recommendedGain">11.5-16</p>
+        <p style="font-size: 32px; color: var(--text-secondary); margin: 8px 0 0;">kg</p>
       </div>
     </div>
   </div>
