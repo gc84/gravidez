@@ -2,41 +2,71 @@
 <div style="padding: 0.5rem 0; max-width: 100%;">
   <h2 class="sr-only">Curva de peso da gravidez interativa</h2>
   
-  <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem;">
+  <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 1.5rem;">
     <div>
-      <label style="display: block; font-size: 14px; font-weight: 500; color: var(--text-primary); margin-bottom: 8px;">Peso pré-gravidez</label>
-      <div class="weight-picker" id="preWeightPicker" style="background: var(--surface-1); border-radius: 12px; border: 0.5px solid var(--border); padding: 12px; height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: grab; user-select: none; position: relative; overflow: hidden;">
-        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none;">
-          <div style="position: absolute; top: 50px; left: 0; right: 0; height: 60px; border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border);"></div>
-        </div>
-        <div id="preWeightDisplay" style="position: relative; z-index: 1; font-size: 48px; font-weight: 500; color: var(--text-primary);">64</div>
-        <div style="position: relative; z-index: 1; font-size: 13px; color: var(--text-secondary); margin-top: 8px;">kg</div>
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px;">
+        <label style="font-size: 14px; font-weight: 500; color: var(--text-primary);">Peso pré-gravidez</label>
+        <span style="font-size: 18px; font-weight: 500; color: var(--fill-accent);" id="preWeightValue">64</span>
       </div>
-      <input type="hidden" id="preWeight" value="64">
-    </div>
-    
-    <div>
-      <label style="display: block; font-size: 14px; font-weight: 500; color: var(--text-primary); margin-bottom: 8px;">Altura</label>
-      <div class="height-picker" id="heightPicker" style="background: var(--surface-1); border-radius: 12px; border: 0.5px solid var(--border); padding: 12px; height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: grab; user-select: none; position: relative; overflow: hidden;">
-        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none;">
-          <div style="position: absolute; top: 50px; left: 0; right: 0; height: 60px; border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border);"></div>
-        </div>
-        <div id="heightDisplay" style="position: relative; z-index: 1; font-size: 48px; font-weight: 500; color: var(--text-primary);">160</div>
-        <div style="position: relative; z-index: 1; font-size: 13px; color: var(--text-secondary); margin-top: 8px;">cm</div>
-      </div>
-      <input type="hidden" id="height" value="160">
+      <input type="range" id="preWeight" value="64" min="40" max="80" step="0.5" style="width: 100%; height: 48px; cursor: pointer; -webkit-appearance: none; appearance: none; background: transparent;">
+      <style>
+        input[type="range"] { width: 100%; }
+        input[type="range"]::-webkit-slider-track {
+          background: var(--surface-1);
+          height: 8px;
+          border-radius: 4px;
+          border: 0.5px solid var(--border);
+        }
+        input[type="range"]::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+          background: var(--fill-accent);
+          cursor: pointer;
+          box-shadow: 0 0 0 3px rgba(57, 135, 229, 0.15);
+        }
+        input[type="range"]::-moz-range-track {
+          background: var(--surface-1);
+          height: 8px;
+          border-radius: 4px;
+          border: 0.5px solid var(--border);
+        }
+        input[type="range"]::-moz-range-thumb {
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+          background: var(--fill-accent);
+          cursor: pointer;
+          border: none;
+          box-shadow: 0 0 0 3px rgba(57, 135, 229, 0.15);
+        }
+      </style>
     </div>
 
     <div>
-      <label style="display: block; font-size: 14px; font-weight: 500; color: var(--text-primary); margin-bottom: 8px;">Peso atual</label>
-      <div class="weight-picker" id="currentWeightPicker" style="background: var(--surface-1); border-radius: 12px; border: 0.5px solid var(--border); padding: 12px; height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: grab; user-select: none; position: relative; overflow: hidden;">
-        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none;">
-          <div style="position: absolute; top: 50px; left: 0; right: 0; height: 60px; border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border);"></div>
-        </div>
-        <div id="currentWeightDisplay" style="position: relative; z-index: 1; font-size: 48px; font-weight: 500; color: var(--text-primary);">72</div>
-        <div style="position: relative; z-index: 1; font-size: 13px; color: var(--text-secondary); margin-top: 8px;">kg</div>
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px;">
+        <label style="font-size: 14px; font-weight: 500; color: var(--text-primary);">Altura</label>
+        <span style="font-size: 18px; font-weight: 500; color: var(--fill-accent);" id="heightValue">160</span>
       </div>
-      <input type="hidden" id="currentWeight" value="72">
+      <input type="range" id="height" value="160" min="150" max="190" step="1" style="width: 100%; height: 48px; cursor: pointer;">
+    </div>
+
+    <div>
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px;">
+        <label style="font-size: 14px; font-weight: 500; color: var(--text-primary);">Peso atual</label>
+        <span style="font-size: 18px; font-weight: 500; color: var(--fill-accent);" id="currentWeightValue">72</span>
+      </div>
+      <input type="range" id="currentWeight" value="72" min="40" max="80" step="0.1" style="width: 100%; height: 48px; cursor: pointer;">
+    </div>
+
+    <div>
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px;">
+        <label style="font-size: 14px; font-weight: 500; color: var(--text-primary);">Semana atual</label>
+        <span style="font-size: 18px; font-weight: 500; color: var(--fill-accent);" id="weekValue">20</span>
+      </div>
+      <input type="range" id="week" value="20" min="0" max="40" step="1" style="width: 100%; height: 48px; cursor: pointer;">
     </div>
   </div>
 
@@ -61,101 +91,36 @@
     </div>
   </div>
 
-  <div style="margin-bottom: 1.5rem;">
-    <label style="display: block; font-size: 14px; font-weight: 500; color: var(--text-primary); margin-bottom: 12px;">Semana: <span id="weekDisplay" style="font-size: 18px; color: var(--fill-accent);">20</span></label>
-    <input type="range" id="week" value="20" min="0" max="40" style="width: 100%; height: 44px; cursor: pointer;">
-  </div>
-
   <div style="position: relative; width: 100%; height: 280px; margin-bottom: 1.5rem; background: var(--surface-1); border-radius: 12px; padding: 1rem; box-sizing: border-box;">
     <canvas id="weightChart" role="img" aria-label="Gráfico da curva de peso durante a gravidez" style="max-width: 100%;"></canvas>
   </div>
 
   <div style="background: var(--surface-1); border-radius: 12px; padding: 1rem; font-size: 13px; color: var(--text-secondary);">
     <p style="margin: 0 0 8px; font-weight: 500; color: var(--text-primary);">Dicas:</p>
-    <p style="margin: 0; line-height: 1.6;">Rolar pesos para cima/baixo. O ganho varia conforme IMC pré-gravidez. Maior ganho ocorre no 2º e 3º trimestres.</p>
+    <p style="margin: 0; line-height: 1.6;">Use os sliders para ajustar cada valor. O ganho varia conforme IMC pré-gravidez. Maior ganho ocorre no 2º e 3º trimestres.</p>
   </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
 const preWeightInput = document.getElementById('preWeight');
-const preWeightDisplay = document.getElementById('preWeightDisplay');
-const preWeightPicker = document.getElementById('preWeightPicker');
+const preWeightValue = document.getElementById('preWeightValue');
 
 const heightInput = document.getElementById('height');
-const heightDisplay = document.getElementById('heightDisplay');
-const heightPicker = document.getElementById('heightPicker');
+const heightValue = document.getElementById('heightValue');
 
 const currentWeightInput = document.getElementById('currentWeight');
-const currentWeightDisplay = document.getElementById('currentWeightDisplay');
-const currentWeightPicker = document.getElementById('currentWeightPicker');
+const currentWeightValue = document.getElementById('currentWeightValue');
 
 const weekInput = document.getElementById('week');
-const weekDisplay = document.getElementById('weekDisplay');
+const weekValue = document.getElementById('weekValue');
+
 const bmiDisplay = document.getElementById('bmiDisplay');
 const bmiCategory = document.getElementById('bmiCategory');
 const currentGainDisplay = document.getElementById('currentGain');
 const recommendedGainDisplay = document.getElementById('recommendedGain');
 
 let chart;
-
-function createPicker(picker, inputElement, displayElement, min = 30, max = 200, step = 0.1) {
-  let isDragging = false;
-  let startY = 0;
-  let value = parseFloat(inputElement.value);
-
-  function updateDisplay() {
-    value = Math.max(min, Math.min(max, value));
-    inputElement.value = value;
-    displayElement.textContent = value.toFixed(step < 1 ? 1 : 0);
-    updateChart();
-  }
-
-  picker.addEventListener('wheel', (e) => {
-    e.preventDefault();
-    const delta = e.deltaY > 0 ? -step : step;
-    value += delta;
-    updateDisplay();
-  }, { passive: false });
-
-  picker.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    startY = e.clientY;
-    picker.style.cursor = 'grabbing';
-  });
-
-  document.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    const diff = startY - e.clientY;
-    const delta = diff * (step / 5);
-    value += delta;
-    updateDisplay();
-    startY = e.clientY;
-  });
-
-  document.addEventListener('mouseup', () => {
-    isDragging = false;
-    picker.style.cursor = 'grab';
-  });
-
-  picker.addEventListener('touchstart', (e) => {
-    isDragging = true;
-    startY = e.touches[0].clientY;
-  });
-
-  document.addEventListener('touchmove', (e) => {
-    if (!isDragging) return;
-    const diff = startY - e.touches[0].clientY;
-    const delta = diff * (step / 5);
-    value += delta;
-    updateDisplay();
-    startY = e.touches[0].clientY;
-  });
-
-  document.addEventListener('touchend', () => {
-    isDragging = false;
-  });
-}
 
 function getWeightRecommendation(bmi) {
   if (bmi < 18.5) return { min: 12.5, max: 18, category: 'Baixo peso' };
@@ -189,10 +154,14 @@ function updateChart() {
   const week = parseInt(weekInput.value);
   const currentWeight = parseFloat(currentWeightInput.value);
   
+  preWeightValue.textContent = preWeight.toFixed(1);
+  heightValue.textContent = height.toFixed(0);
+  currentWeightValue.textContent = currentWeight.toFixed(1);
+  weekValue.textContent = week.toFixed(0);
+  
   const bmi = calculateBMI(preWeight, height);
   const rec = getWeightRecommendation(bmi);
   
-  weekDisplay.textContent = week;
   bmiDisplay.textContent = bmi.toFixed(1);
   bmiCategory.textContent = rec.category;
   
@@ -332,19 +301,10 @@ function updateChart() {
   }
 }
 
-createPicker(preWeightPicker, preWeightInput, preWeightDisplay, 30, 200, 0.5);
-createPicker(heightPicker, heightInput, heightDisplay, 140, 220, 1);
-createPicker(currentWeightPicker, currentWeightInput, currentWeightDisplay, 30, 200, 0.1);
-
-weekInput.addEventListener('input', () => {
-  weekDisplay.textContent = weekInput.value;
-  updateChart();
-});
-
-weekInput.style.webkitAppearance = 'none';
-weekInput.style.appearance = 'none';
-weekInput.style.borderRadius = '12px';
-weekInput.style.background = 'var(--surface-1)';
+preWeightInput.addEventListener('input', updateChart);
+heightInput.addEventListener('input', updateChart);
+currentWeightInput.addEventListener('input', updateChart);
+weekInput.addEventListener('input', updateChart);
 
 updateChart();
 </script>
